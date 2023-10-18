@@ -1,5 +1,5 @@
 :root {
-  --banner-text-color: #fff;
+  --banner-text-color: #ddd;
 }
 
 ::-webkit-scrollbar {
@@ -12,7 +12,7 @@
   top: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 24px;
   z-index: 9999;
@@ -20,7 +20,7 @@
 }
 
 .logo_img {
-  width: 100px;
+  width: 140px;
   height: 30px;
 }
 
@@ -33,7 +33,7 @@
   height: 60vh;
   background-image: url('../image/banner.png');
   background-size: cover;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .jumbotron-description p {
@@ -61,6 +61,7 @@
 .search_input {
   min-width: 350px;
   padding: 10px 40px 10px 24px;
+  background-color: #ddd;
   border: none;
   border-radius: 25px;
   outline: none;
@@ -101,7 +102,13 @@
 .movie_item {
   width: 200px;
   height: 250px;
-  border: 1px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.movie_item:hover {
+  transform: scale(1.02);
 }
 
 /* utils */
