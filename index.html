@@ -5,9 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Movie App</title>
   </head>
   <body>
+    <div class="root fadein">
+      <header id="header">
+        <div class="logo_box">
+          <h1 class="blind">CINE SEARCH</h1>
+          <a href="/">
+            <img
+              class="logo_img"
+              draggable="true"
+              src="./image/logo.png"
+              alt="CINE SEARCH"
+            />
+          </a>
+        </div>
+        <!-- NAV ITEMS -->
+        <!-- <div>
+          <ul>
+            <li>LIST ITEM</li>
+          </ul>
+        </div> -->
+      </header>
+      <main id="main">
+        <!-- 검색창 -->
+        <section class="jumbotron">
+          <div class="jumbotron-description">
+            <p>Your favorite movies.</p>
+            <p>Explained</p>
+          </div>
+          <div class="search">
+            <form>
+              <div class="form_box">
+                <input
+                  class="search_input"
+                  autofocus
+                  type="text"
+                  maxlength="50"
+                  placeholder="Search for a movie..."
+                />
+                <button class="search_btn" type="submit">
+                  <span>🍳</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+        <!-- 인기 영화 -->
+        <section class="popular">
+          <h2 class="subtitle">🔥 Popular Movies</h2>
+          <div class="movie_box">
+            <ul class="movie_lists">
+              <li class="movie_item">ITEM</li>
+              <li class="movie_item">ITEM</li>
+              <li class="movie_item">ITEM</li>
+              <li class="movie_item">ITEM</li>
+              <li class="movie_item">ITEM</li>
+              <li class="movie_item">ITEM</li>
+              <li class="movie_item">ITEM</li>
+              <li class="movie_item">ITEM</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
     <script src="./js/script.js"></script>
   </body>
 </html>

@@ -1,0 +1,127 @@
+:root {
+  --banner-text-color: #fff;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 헤더 */
+#header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  z-index: 9999;
+  background-color: transparent;
+}
+
+.logo_img {
+  width: 100px;
+  height: 30px;
+}
+
+/* 점보트론 */
+.jumbotron {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background-image: url('../image/banner.png');
+  background-size: cover;
+  opacity: 0.8;
+}
+
+.jumbotron-description p {
+  font-size: 32px;
+  line-height: 40px;
+  color: var(--banner-text-color);
+  text-align: center;
+}
+
+.jumbotron-description p:first-child {
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: bold;
+}
+
+/* 검색창 */
+.search {
+  margin-top: 24px;
+}
+
+.form_box {
+  position: relative;
+}
+
+.search_input {
+  min-width: 350px;
+  padding: 10px 40px 10px 24px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.search_btn {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 0 15px 15px 0;
+}
+
+.search_btn span {
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+/* 인기 영화 */
+.popular {
+  padding: 64px 80px;
+}
+
+.subtitle {
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.movie_lists {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+  grid-gap: 16px;
+}
+
+.movie_item {
+  width: 200px;
+  height: 250px;
+  border: 1px solid #000;
+}
+
+/* utils */
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.fadein {
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
