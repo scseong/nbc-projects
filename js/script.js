@@ -7,17 +7,32 @@ const options = {
   },
 };
 
-const BASE_URL = 'https://api.themoviedb.org/3/movie';
+const BASE_URL = 'https://api.themoviedb.org/3';
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/';
 const FILE_SIZE = {
   w200: 'w200',
 };
+const ACTION = {
+  popular: 'popular',
+  search: 'search',
+};
 
-const fetchData = () => {
+const fetchMovies = (action, query) => {
+  const popularURL = `${BASE_URL}/movie/popular`;
+  const searchURL = `${BASE_URL}/search/movie?query=${query}`;
+  let selectURL = '';
+
+  switch (action) {
+    case 'popular':
+      selectURL = popularURL;
+      break;
+    case 'search':
+      selectURL = searchURL;
+      break;
+  }
+
   try {
-    const data = fetch(`${BASE_URL}/popular`, options).then((res) =>
-      res.json()
-    );
+    const data = fetch(selectURL, options).then((res) => res.json());
     return data;
   } catch (err) {
     console.error(err);
@@ -47,7 +62,9 @@ const createCard = (
   moviePoster.className = 'movie_poster';
   movieOverview.className = 'movie_overview';
   movieOverview.innerHTML = overview;
-  moviePoster.src = `${BASE_IMG_URL}${FILE_SIZE.w200}${poster_path}`;
+  moviePoster.src = poster_path
+    ? `${BASE_IMG_URL}${FILE_SIZE.w200}${poster_path}`
+    : '../image/default-movie.png';
 
   posterDiv.appendChild(moviePoster);
   posterDiv.appendChild(movieOverview);
@@ -62,9 +79,10 @@ const createCard = (
 
   movieTitle.innerHTML = title;
 
-  const [year, month, _] = release_date.split('-');
-  movieYear.innerHTML = `${year.substring(2, 4)}.${month}`;
-  movieAverge.innerHTML = `⭐${vote_average}`;
+  const [year = '0000', month = '00', _] =
+    release_date !== '' ? release_date.split('-') : [];
+  movieYear.innerHTML = `${year}.${month}`;
+  movieAverge.innerHTML = `⭐${Math.round(vote_average * 10) / 10}`;
 
   const detailDiv = document.createElement('div');
   detailDiv.className = 'movie_details';
@@ -78,21 +96,19 @@ const createCard = (
   movieListItem.appendChild(infoDiv);
   movieList.appendChild(movieListItem);
 
-  movieListItem.addEventListener('click', function (event) {
-    alert(`영화 ID: ${id}`);
-  });
+  movieListItem.addEventListener('click', () => alert(`영화 ID: ${id}`));
 
-  movieListItem.addEventListener('mouseover', function (event) {
-    movieOverview.classList.add('visible');
-  });
+  movieListItem.addEventListener('mouseover', () =>
+    movieOverview.classList.add('visible')
+  );
 
-  movieListItem.addEventListener('mouseout', function (event) {
-    movieOverview.classList.remove('visible');
-  });
+  movieListItem.addEventListener('mouseout', () =>
+    movieOverview.classList.remove('visible')
+  );
 };
 
-const displayMovies = async () => {
-  const { results: data } = await fetchData();
+const displayPopularMovies = async () => {
+  const { results: data } = await fetchMovies(ACTION.popular);
 
   data.forEach((movie) => {
     const { id, title, overview, release_date, poster_path, vote_average } =
@@ -101,4 +117,61 @@ const displayMovies = async () => {
   });
 };
 
-displayMovies();
+const displaySearchMovies = async (query) => {
+  if (query === '') return;
+
+  const word = query.toLowerCase();
+
+  const { results } = await fetchMovies(ACTION.search, word);
+  let data = results.filter((movie) => {
+    const target = movie.original_title.toLowerCase();
+    if (target.includes(word)) {
+      return movie;
+    }
+  });
+
+  data = data.sort((a, b) => a.release_date - b.release_date);
+
+  const subtitle = document.querySelector('.section_title');
+  subtitle.innerHTML = `🌎 Search:  ${query}`;
+
+  const movieList = document.querySelector('.movie_lists');
+  if (movieList) {
+    while (movieList.firstChild) {
+      movieList.removeChild(movieList.firstChild);
+    }
+  }
+
+  data.forEach((movie) => {
+    const {
+      id,
+      original_title,
+      overview,
+      release_date,
+      poster_path,
+      vote_average,
+    } = movie;
+    createCard(
+      id,
+      original_title,
+      overview,
+      poster_path,
+      release_date,
+      vote_average
+    );
+  });
+};
+
+const form = document.querySelector('.search_form');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const input = document.getElementById('search_input');
+  displaySearchMovies(input.value);
+
+  input.value = '';
+  return false;
+});
+
+displayPopularMovies();
