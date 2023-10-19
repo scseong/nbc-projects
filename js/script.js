@@ -28,8 +28,6 @@ const fetchData = () => {
   }
 };
 
-const movieList = document.querySelector('.movie_lists');
-
 const createCard = (
   id,
   title,
@@ -38,19 +36,24 @@ const createCard = (
   release_date,
   vote_average
 ) => {
+  const movieList = document.querySelector('.movie_lists');
   const movieListItem = document.createElement('li');
   movieListItem.className = 'movie_item';
 
   const posterDiv = document.createElement('div');
   const infoDiv = document.createElement('div');
   posterDiv.className = 'movie_image';
-  infoDiv.className = 'movie_desc';
+  infoDiv.className = 'movie_info';
 
   const moviePoster = document.createElement('img');
+  const movieOverview = document.createElement('p');
   moviePoster.className = 'movie_poster';
+  movieOverview.className = 'movie_overview';
+  movieOverview.innerHTML = overview;
   moviePoster.src = `${BASE_URL}${FILE_SIZE.w200}${poster_path}`;
 
   posterDiv.appendChild(moviePoster);
+  posterDiv.appendChild(movieOverview);
   movieListItem.appendChild(posterDiv);
 
   const movieTitle = document.createElement('p');
@@ -78,8 +81,16 @@ const createCard = (
   movieListItem.appendChild(infoDiv);
   movieList.appendChild(movieListItem);
 
-  movieListItem.addEventListener('click', () => {
+  movieListItem.addEventListener('click', function (event) {
     alert(`영화 ID: ${id}`);
+  });
+
+  movieListItem.addEventListener('mouseover', function (event) {
+    movieOverview.classList.add('visible');
+  });
+
+  movieListItem.addEventListener('mouseout', function (event) {
+    movieOverview.classList.remove('visible');
   });
 };
 
