@@ -1,5 +1,7 @@
 :root {
   --banner-text-color: #ddd;
+  --card-text: #eee;
+  --card-text-year: #aaa;
 }
 
 ::-webkit-scrollbar {
@@ -93,6 +95,7 @@
   font-weight: bold;
 }
 
+/* 영화 목록 */
 .movie_lists {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, auto));
@@ -100,9 +103,11 @@
 }
 
 .movie_item {
-  width: 200px;
-  height: 250px;
-  border-radius: 10px;
+  padding: 6px;
+  width: 212px;
+  height: 385px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   overflow: hidden;
   transition: all 0.2s ease-in-out;
 }
@@ -111,6 +116,35 @@
   transform: scale(1.02);
 }
 
+.movie_image {
+  margin-bottom: 8px;
+}
+
+.movie_image img {
+  border-radius: 6px;
+}
+
+.movie_desc {
+  padding: 0 4px;
+}
+
+.movie_desc > p:first-child {
+  margin-bottom: 4px;
+}
+
+.movie_details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie_title {
+  font-weight: bold;
+  height: 36px;
+}
+
+.movie_year {
+  color: var(--card-text-year);
+}
 /* utils */
 .blind {
   position: absolute;
@@ -131,4 +165,12 @@
   100% {
     opacity: 1;
   }
+}
+
+.ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

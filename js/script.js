@@ -1,3 +1,4 @@
+// 실제 API 로직
 // const options = {
 //   method: 'GET',
 //   headers: {
@@ -14,7 +15,7 @@
 const url = '../data/popular.json';
 const BASE_URL = 'https://image.tmdb.org/t/p/';
 const FILE_SIZE = {
-  w300: 'w300',
+  w200: 'w200',
 };
 
 const fetchData = () => {
@@ -27,39 +28,69 @@ const fetchData = () => {
   }
 };
 
-const movie_lists = document.querySelector('.movie_lists');
-const movie_items = movie_lists.querySelectorAll('li');
+const movieList = document.querySelector('.movie_lists');
 
-const displayMovies = async () => {
-  //   const { results: data } = await fetchData();
-  const res = await fetchData();
-  const data = res.results;
+const createCard = (
+  id,
+  title,
+  overview,
+  poster_path,
+  release_date,
+  vote_average
+) => {
+  const movieListItem = document.createElement('li');
+  movieListItem.className = 'movie_item';
 
-  console.log(res.results);
+  const posterDiv = document.createElement('div');
+  const infoDiv = document.createElement('div');
+  posterDiv.className = 'movie_image';
+  infoDiv.className = 'movie_desc';
 
-  data.forEach((movie) => {
-    const { id, title, overview, poster_path, vote_average } = movie;
-    const li = document.createElement('li');
-    li.className = 'movie_item';
-    // li.innerHTML = `${title}<br/>${overview}<br/>${poster_path}<br/>${vote_average} `;
-    li.style.backgroundImage = `url('${BASE_URL}${FILE_SIZE.w300}${poster_path}')`;
-    li.style.backgroundSize = 'cover';
-    li.style.backgroundRepeat = 'no-repeat';
+  const moviePoster = document.createElement('img');
+  moviePoster.className = 'movie_poster';
+  moviePoster.src = `${BASE_URL}${FILE_SIZE.w200}${poster_path}`;
 
-    movie_lists.appendChild(li);
+  posterDiv.appendChild(moviePoster);
+  movieListItem.appendChild(posterDiv);
+
+  const movieTitle = document.createElement('p');
+  const movieYear = document.createElement('p');
+  const movieAverge = document.createElement('p');
+  movieTitle.className = 'movie_title ellpsis';
+  movieYear.className = 'movie_year';
+  movieAverge.className = 'movie_grade';
+
+  movieTitle.innerHTML = title;
+
+  const [year, month, _] = release_date.split('-');
+  movieYear.innerHTML = `${year.substring(2, 4)}.${month}`;
+  movieAverge.innerHTML = `⭐${vote_average}`;
+
+  const detailDiv = document.createElement('div');
+  detailDiv.className = 'movie_details';
+
+  detailDiv.appendChild(movieYear);
+  detailDiv.appendChild(movieAverge);
+
+  infoDiv.appendChild(movieTitle);
+  infoDiv.appendChild(detailDiv);
+
+  movieListItem.appendChild(infoDiv);
+  movieList.appendChild(movieListItem);
+
+  movieListItem.addEventListener('click', () => {
+    alert(`영화 ID: ${id}`);
   });
 };
 
-// const displayMovies = () => {
-//   fetchData().then((res) => {
-//     const data = res.results;
-//     data.forEach((movie) => {
-//       const li = document.createElement('li');
-//       li.className = 'movie_item';
-//       li.innerHTML = movie.title;
-//       movie_lists.appendChild(li);
-//     });
-//   });
-// };
+const displayMovies = async () => {
+  const { results: data } = await fetchData();
+
+  data.forEach((movie) => {
+    const { id, title, overview, release_date, poster_path, vote_average } =
+      movie;
+    createCard(id, title, overview, poster_path, release_date, vote_average);
+  });
+};
 
 displayMovies();
