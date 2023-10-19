@@ -1,26 +1,23 @@
-// 실제 API 로직
-// const options = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization: '',
-//   },
-// };
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MTFlY2RhOWNkNTU0MmFiOTczMTJlYTA1Y2QyZTNjMyIsInN1YiI6IjYzYzUxOWY4YjdkMzUyMDA3YzU3ZGU1ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xmURuZE0t1YyuIV3I4Wu-BjeAiYIKohliS6iHEZyGUQ',
+  },
+};
 
-// fetch('../data/popular.json', options)
-//   .then((response) => response.json())
-//   .then((response) => console.log(response))
-//   .catch((err) => console.error(err));
-
-const url = '../data/popular.json';
-const BASE_URL = 'https://image.tmdb.org/t/p/';
+const BASE_URL = 'https://api.themoviedb.org/3/movie';
+const BASE_IMG_URL = 'https://image.tmdb.org/t/p/';
 const FILE_SIZE = {
   w200: 'w200',
 };
 
 const fetchData = () => {
   try {
-    const data = fetch(url).then((res) => res.json());
+    const data = fetch(`${BASE_URL}/popular`, options).then((res) =>
+      res.json()
+    );
     return data;
   } catch (err) {
     console.error(err);
@@ -50,7 +47,7 @@ const createCard = (
   moviePoster.className = 'movie_poster';
   movieOverview.className = 'movie_overview';
   movieOverview.innerHTML = overview;
-  moviePoster.src = `${BASE_URL}${FILE_SIZE.w200}${poster_path}`;
+  moviePoster.src = `${BASE_IMG_URL}${FILE_SIZE.w200}${poster_path}`;
 
   posterDiv.appendChild(moviePoster);
   posterDiv.appendChild(movieOverview);
