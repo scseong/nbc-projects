@@ -64,7 +64,7 @@ const createCard = (
   movieOverview.innerHTML = overview;
   moviePoster.src = poster_path
     ? `${BASE_IMG_URL}${FILE_SIZE.w200}${poster_path}`
-    : '../image/default-movie.png';
+    : 'image/default-movie.png';
 
   posterDiv.appendChild(moviePoster);
   posterDiv.appendChild(movieOverview);
