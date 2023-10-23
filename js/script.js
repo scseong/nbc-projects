@@ -52,118 +52,93 @@ const createCard = (
   const movieListItem = document.createElement('li');
   movieListItem.className = 'movie_item';
 
-  const posterDiv = document.createElement('div');
-  const infoDiv = document.createElement('div');
-  posterDiv.className = 'movie_image';
-  infoDiv.className = 'movie_info';
-
-  const moviePoster = document.createElement('img');
-  const movieOverview = document.createElement('p');
-  moviePoster.className = 'movie_poster';
-  movieOverview.className = 'movie_overview';
-  movieOverview.innerHTML = overview;
-  moviePoster.src = poster_path
+  const [year = '0000', month = '00', _] =
+    release_date !== '' ? release_date.split('-') : [];
+  const posterURL = poster_path
     ? `${BASE_IMG_URL}${FILE_SIZE.w200}${poster_path}`
     : 'image/default-movie.png';
 
-  posterDiv.appendChild(moviePoster);
-  posterDiv.appendChild(movieOverview);
-  movieListItem.appendChild(posterDiv);
+  movieListItem.innerHTML = `
+  <div class="movie_image">
+    <img
+      class="movie_poster"
+      src=${posterURL}
+    />
+    <p class="movie_overview">${overview}</p>
+  </div>
+  <div class="movie_info">
+    <p class="movie_title ellpsis">${title}</p>
+    <div class="movie_details">
+      <p class="movie_year">${year + '.' + month}</p>
+      <p class="movie_grade">⭐${Math.round(vote_average * 10) / 10}</p>
+    </div>
+  </div>
+`;
 
-  const movieTitle = document.createElement('p');
-  const movieYear = document.createElement('p');
-  const movieAverge = document.createElement('p');
-  movieTitle.className = 'movie_title ellpsis';
-  movieYear.className = 'movie_year';
-  movieAverge.className = 'movie_grade';
-
-  movieTitle.innerHTML = title;
-
-  const [year = '0000', month = '00', _] =
-    release_date !== '' ? release_date.split('-') : [];
-  movieYear.innerHTML = `${year}.${month}`;
-  movieAverge.innerHTML = `⭐${Math.round(vote_average * 10) / 10}`;
-
-  const detailDiv = document.createElement('div');
-  detailDiv.className = 'movie_details';
-
-  detailDiv.appendChild(movieYear);
-  detailDiv.appendChild(movieAverge);
-
-  infoDiv.appendChild(movieTitle);
-  infoDiv.appendChild(detailDiv);
-
-  movieListItem.appendChild(infoDiv);
   movieList.appendChild(movieListItem);
-
   movieListItem.addEventListener('click', () => alert(`영화 ID: ${id}`));
-
-  movieListItem.addEventListener('mouseover', () =>
-    movieOverview.classList.add('visible')
-  );
-
-  movieListItem.addEventListener('mouseout', () =>
-    movieOverview.classList.remove('visible')
-  );
 };
 
-const displayPopularMovies = async () => {
-  const { results: data } = await fetchMovies(ACTION.popular);
-
-  data.forEach((movie) => {
-    const { id, title, overview, release_date, poster_path, vote_average } =
-      movie;
-    createCard(id, title, overview, poster_path, release_date, vote_average);
+const displayPopularMovies = () => {
+  fetchMovies(ACTION.popular).then((res) => {
+    const { results: movies } = res;
+    movies.forEach((movie) => {
+      const { id, title, overview, release_date, poster_path, vote_average } =
+        movie;
+      createCard(id, title, overview, poster_path, release_date, vote_average);
+    });
   });
 };
 
-const displaySearchMovies = async (query) => {
-  if (query === '') return;
+const displaySearchMovies = (query) => {
+  if (query === '') {
+    alert('Please enter at least one character.');
+    return;
+  }
 
   const word = query.toLowerCase();
-
-  const { results } = await fetchMovies(ACTION.search, word);
-  let data = results.filter((movie) => {
-    const target = movie.original_title.toLowerCase();
-    if (target.includes(word)) {
-      return movie;
-    }
-  });
-
-  data = data.sort((a, b) => a.release_date - b.release_date);
-
   const subtitle = document.querySelector('.section_title');
   subtitle.innerHTML = `🌎 Search:  ${query}`;
-
   const movieList = document.querySelector('.movie_lists');
+
   if (movieList) {
     while (movieList.firstChild) {
       movieList.removeChild(movieList.firstChild);
     }
   }
 
-  data.forEach((movie) => {
-    const {
-      id,
-      original_title,
-      overview,
-      release_date,
-      poster_path,
-      vote_average,
-    } = movie;
-    createCard(
-      id,
-      original_title,
-      overview,
-      poster_path,
-      release_date,
-      vote_average
-    );
+  fetchMovies(ACTION.search, word).then((res) => {
+    const { results: movies } = res;
+    movies
+      .filter((movie) => {
+        const target = movie.original_title.toLowerCase();
+        if (target.includes(word)) {
+          return movie;
+        }
+      })
+      .forEach((movie) => {
+        const {
+          id,
+          original_title,
+          overview,
+          release_date,
+          poster_path,
+          vote_average,
+        } = movie;
+
+        createCard(
+          id,
+          original_title,
+          overview,
+          poster_path,
+          release_date,
+          vote_average
+        );
+      });
   });
 };
 
 const form = document.querySelector('.search_form');
-
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 

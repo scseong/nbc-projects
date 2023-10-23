@@ -2,25 +2,21 @@
   --banner-text-color: #ddd;
   --card-text: #eee;
   --card-text-year: #aaa;
-
+  --input-bg: #ddd;
   --poster-border-radius: 6px;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 /* 헤더 */
 #header {
-  position: absolute;
-  top: 0;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
   padding: 24px;
-  z-index: 9999;
   background-color: transparent;
+  z-index: 9999;
 }
 
 .logo_img {
@@ -51,8 +47,8 @@
 
 .jumbotron-description p:first-child {
   font-size: 40px;
-  line-height: 50px;
   font-weight: bold;
+  line-height: 50px;
 }
 
 /* 검색창 */
@@ -67,7 +63,7 @@
 .search_input {
   min-width: 350px;
   padding: 10px 40px 10px 24px;
-  background-color: #ddd;
+  background-color: var(--input-bg);
   border: none;
   border-radius: 25px;
   outline: none;
@@ -124,6 +120,11 @@
   opacity: 0.1;
 }
 
+.movie_item:hover .movie_overview {
+  color: black;
+  text-shadow: 1px 1px 1px gray;
+}
+
 .movie_image {
   position: relative;
   margin-bottom: 8px;
@@ -146,15 +147,9 @@
   border-radius: var(--poster-border-radius);
   color: transparent;
   font-size: 0.9rem;
-  font-weight: bold;
   line-height: 0.9rem;
   overflow: hidden;
   transition: all 0.2s ease-in;
-}
-
-.visible {
-  color: black;
-  text-shadow: rgba(255, 255, 255, 0.6) 2px 2px 2px;
 }
 
 .movie_info {
@@ -207,4 +202,8 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
