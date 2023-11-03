@@ -32,7 +32,6 @@ Todo List 만들기
  ┃ ┃ ┣ 📜AddTodo.modules.css
  ┃ ┃ ┣ 📜TodoItem.jsx
  ┃ ┃ ┣ 📜TodoItem.modules.css
- ┃ ┃ ┗ 📜TodoList.jsx
  ┃ ┣ 📜App.css
  ┃ ┣ 📜App.jsx
  ┃ ┣ 📜index.css
