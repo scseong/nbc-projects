@@ -1,14 +1,14 @@
 import React from 'react';
 import './TodoItem.modules.css';
 
-export default function TodoItem({ todo, deleteTodo, toogleTodoState }) {
+export default function TodoItem({ todo, deleteTodo, toggleTodoState }) {
   const { id, title, body, isDone } = todo;
 
   const handleClickDeleteBtn = () => {
     const result = window.confirm('정말로 삭제하시겠습니까?');
     if (result) deleteTodo(id);
   };
-  const handleClickToggleBtn = () => toogleTodoState(id);
+  const handleClickToggleBtn = () => toggleTodoState(id);
 
   return (
     <li className="todo-item">

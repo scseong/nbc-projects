@@ -17,14 +17,14 @@ export default function App() {
 
   const deleteTodo = (todoId) => {
     const filteredTodos = todos.filter((todo) => todo.id !== todoId);
-    setToDos([...filteredTodos]);
+    setToDos(filteredTodos);
   };
 
-  const toogleTodoState = (todoId) => {
+  const toggleTodoState = (todoId) => {
     const copyTodos = [...todos];
     const targetIndex = copyTodos.findIndex((todo) => todo.id === todoId);
     copyTodos[targetIndex].isDone = !copyTodos[targetIndex].isDone;
-    setToDos([...copyTodos]);
+    setToDos(copyTodos);
   };
 
   return (
@@ -41,7 +41,7 @@ export default function App() {
               <TodoItem
                 key={todo.id}
                 todo={todo}
-                toogleTodoState={toogleTodoState}
+                toggleTodoState={toggleTodoState}
                 deleteTodo={deleteTodo}
               />
             ))}
@@ -54,7 +54,7 @@ export default function App() {
               <TodoItem
                 key={todo.id}
                 todo={todo}
-                toogleTodoState={toogleTodoState}
+                toggleTodoState={toggleTodoState}
                 deleteTodo={deleteTodo}
               />
             ))}
