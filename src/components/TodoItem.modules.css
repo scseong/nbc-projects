@@ -1,3 +1,10 @@
+.todo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  min-height: 140px;
+}
+
 .todo-item {
   display: flex;
   flex-direction: column;
@@ -14,14 +21,16 @@
   margin-bottom: 0.6rem;
   font-size: 1.4rem;
   font-weight: bold;
-  color: var(--text-title-color);
+  color: var(--text-primary-color);
   text-shadow: var(--text-shadow);
+  overflow: hidden;
 }
 
 .todo-body {
   flex-grow: 1;
   font-size: 1.1rem;
-  color: var(--text-body-color);
+  overflow-wrap: break-word;
+  color: var(--text-second-color);
 }
 
 .todo-btn:hover {
