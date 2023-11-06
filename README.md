@@ -25,32 +25,38 @@ Todo List 만들기
 ## 🚩 컴포넌트
 
 ```
-📦project
+📦nbc-todolist
+ ┣ 📂public
  ┣ 📂src
  ┃ ┣ 📂components
  ┃ ┃ ┣ 📜AddTodo.jsx
  ┃ ┃ ┣ 📜AddTodo.modules.css
  ┃ ┃ ┣ 📜TodoItem.jsx
  ┃ ┃ ┣ 📜TodoItem.modules.css
- ┃ ┣ 📜App.css
+ ┃ ┃ ┣ 📜TodoList.jsx
+ ┃ ┃ ┗ 📜TodoList.modules.css
+ ┃ ┣ 📂static
+ ┃ ┃ ┗ 📂fonts
  ┃ ┣ 📜App.jsx
- ┃ ┣ 📜index.css
- ┃ ┗ 📜index.js
+ ┃ ┣ 📜index.js
+ ┃ ┣ 📜reset.css
+ ┃ ┗ 📜variables.css
 ```
 
-- AddTodo Component - 사용자의 입력을 받아 ToDo를 생성 
-- TodoItem Component - todo 배열을 전달 받아 순회하며 할 일 목록을 출력
+- AddTodo Component - 사용자의 입력을 받아 ToDo를 생성
+- TodoItem Component - todo 배열을 전달 받아 순회하며 할 일 보여주는 UI
+- TodoList Component - todo 상태관리, 이벤트 처리 등 작업 수행하는 컨테이너
 - App Component - root에 표시되는 메인 컴포넌트.
 
 ## 🚩 질문
 
 ### 1.JSX 문법이란 무엇일까요?
 
-React 컴포넌트 작성을 손쉽게 하는 구문. 자바스크립트 코드 내에서 HTML처럼 보이는 문법을 사용할 수 있다. JSX는 React 엘리먼트(element)를 생성한다. 
+React 컴포넌트 작성을 손쉽게 하는 구문. 자바스크립트 코드 내에서 HTML처럼 보이는 문법을 사용할 수 있다. JSX는 React 엘리먼트(element)를 생성한다.
 
 ### 2. 사용자가 입력하는 값, 또는 이미 입력된 값, 투두의 타이들과 같은 애플리케이션의 상태를 관리하기 위해 리액트의 어떤 기능을 사용하셨나요?
 
-`useState` React Hook을 사용했다. 
+`useState` React Hook을 사용했다.
 
 ### 3. 애플리케이션의 **상태 값들을 컴포넌트 간 어떤 방식으로 공유하셨나요**?
 
@@ -58,17 +64,17 @@ React 컴포넌트 작성을 손쉽게 하는 구문. 자바스크립트 코드 
 
 ### 4. 기능 구현을 위해 **불변성 유지가** 필요한 부분이 있었다면 하나만 설명해 주세요.
 
-Todo의 완료 상태를 변경하기 위해 선택한 todo의 isDone을 변경해야 했다. 상태로 관리하고 있던 `todos`은 여러 개의 객체를 포함한 배열이다. 배열 내의 객체 프로퍼티의 값을 변경하더라도 객체 참조 값은 변하지 않기 때문에 리액트는 상태 변화로 간주하지 않는다. 
+Todo의 완료 상태를 변경하기 위해 선택한 todo의 isDone을 변경해야 했다. 상태로 관리하고 있던 `todos`은 여러 개의 객체를 포함한 배열이다. 배열 내의 객체 프로퍼티의 값을 변경하더라도 객체 참조 값은 변하지 않기 때문에 리액트는 상태 변화로 간주하지 않는다.
 
 스프레드 연산자를 사용해 `todos`의 복사본을 생성하였고 id값을 전달 받아 해당 todo의 isDone 값을 변경시켜 setState 함수인 `setToDos`의 매개변수로 복사본을 전달해서 상태를 변경했다.
 
-```jsx 
-  const toggleTodoState = (todoId) => {
-    const copyTodos = [...todos];
-    const targetIndex = copyTodos.findIndex((todo) => todo.id === todoId);
-    copyTodos[targetIndex].isDone = !copyTodos[targetIndex].isDone;
-    setToDos(copyTodos);
-  };
+```jsx
+const toggleTodoState = (todoId) => {
+  const copyTodos = [...todos];
+  const targetIndex = copyTodos.findIndex((todo) => todo.id === todoId);
+  copyTodos[targetIndex].isDone = !copyTodos[targetIndex].isDone;
+  setToDos(copyTodos);
+};
 ```
 
 ### 5. 반복되는 컴포넌트를 파악하고 재사용할 수 있는 **컴포넌트로 분리해 보셨나요?** 그렇다면 **어떠한 이점이 있었나요?**

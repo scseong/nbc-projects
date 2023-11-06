@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
 import './AddTodo.modules.css';
 
-export default function AddTodo({ setToDos }) {
-  const [todo, setTodo] = useState({
-    title: '',
-    body: '',
-  });
+export default function AddTodo({ onAddTodo }) {
+  const [todo, setTodo] = useState({ title: '', body: '' });
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setTodo({ ...todo, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setToDos((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        title: todo.title,
-        body: todo.body,
-        isDone: false,
-      },
-    ]);
+
+    if (todo.title.trim().length === 0 || todo.body.trim().length === 0) {
+      alert('');
+      return;
+    }
+
+    onAddTodo({
+      id: Date.now(),
+      title: todo.title,
+      body: todo.body,
+      isDone: false,
+    });
     setTodo({ title: '', body: '' });
   };
 

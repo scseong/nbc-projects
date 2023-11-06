@@ -1,28 +1,26 @@
 import React from 'react';
 import './TodoItem.modules.css';
 
-export default function TodoItem({ todos, deleteTodo, toggleTodoState }) {
+export default function TodoItem({ todo, onDelete, onUpdate }) {
+  const { id, title, body, isDone } = todo;
+
+  const handleDelete = () => onDelete(todo);
+  const handleUpdate = () => onUpdate(todo);
+
   return (
-    <ul className="todo-list">
-      {todos.map((todo) => (
-        <li className="todo-item" key={todo.id}>
-          <p className="todo-title" title={todo.title}>
-            {todo.title}
-          </p>
-          <p className="todo-body">{todo.body}</p>
-          <div>
-            <button onClick={() => deleteTodo(todo.id)} className="todo-btn">
-              삭제
-            </button>
-            <button
-              onClick={() => toggleTodoState(todo.id)}
-              className="todo-btn"
-            >
-              {todo.isDone ? '취소' : '완료'}
-            </button>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <li className="todo-item" key={id}>
+      <p className="todo-title" title={title}>
+        {title}
+      </p>
+      <p className="todo-body">{body}</p>
+      <div>
+        <button onClick={handleDelete} className="todo-btn">
+          삭제
+        </button>
+        <button onClick={handleUpdate} className="todo-btn">
+          {isDone ? '취소' : '완료'}
+        </button>
+      </div>
+    </li>
   );
 }

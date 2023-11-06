@@ -139,3 +139,17 @@ button {
   box-sizing: border-box;
   font-family: 'Nanum Myeongjo', serif;
 }
+
+@font-face {
+  font-family: 'Nanum Myeongjo';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./static/fonts/NanumMyeongjo-Regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Nanum Myeongjo';
+  font-style: normal;
+  font-weight: 700;
+  src: url(./static/fonts/NanumMyeongjo-Bold.woff2) format('woff2');
+}
