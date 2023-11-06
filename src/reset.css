@@ -144,6 +144,7 @@ button {
   font-family: 'Nanum Myeongjo';
   font-style: normal;
   font-weight: 400;
+  font-display: swap;
   src: url(./static/fonts/NanumMyeongjo-Regular.woff2) format('woff2');
 }
 
@@ -151,5 +152,6 @@ button {
   font-family: 'Nanum Myeongjo';
   font-style: normal;
   font-weight: 700;
+  font-display: swap;
   src: url(./static/fonts/NanumMyeongjo-Bold.woff2) format('woff2');
 }
