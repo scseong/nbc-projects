@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
+import PyeongChangPeaceLight from 'assets/fonts/PyeongChangPeace-Light.woff2';
+import PyeongChangPeaceBold from 'assets/fonts/PyeongChangPeace-Bold.woff2';
 
 const GlobalStyles = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -28,7 +30,10 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: 'Noto Sans KR', sans-serif; */
+	background: linear-gradient(185deg, rgba(0,150,199,1) 0%, rgba(0,180,216,1) 25%, rgba(72,202,228,1) 51%, rgba(144,224,239,1) 76%, rgba(173,232,244,1) 100%);
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
 ol, ul, li {
 	list-style: none;
@@ -46,16 +51,37 @@ table {
 	border-spacing: 0;
 }
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
+}  
+input, button, textarea{
+    border: none;
+    background: inherit;
+    font-family: 'PyeongChangPeace', sans-serif;
+	outline: none;
+} 
+* { 
+    box-sizing: border-box;
 }
-input, button {
-  border: none;
-  background: inherit;
-  font-family: 'Noto Sans KR', sans-serif;
+body::-webkit-scrollbar {
+  display: none;
 }
-* {
-  box-sizing: border-box;
+#root {
+	max-width: 1400px;
+	margin: 0 auto;
+}
+@font-face {
+	font-family: 'PyeongChangPeace';
+	src: url(${PyeongChangPeaceLight}) format('woff2');
+	font-weight: 300;
+}
+@font-face {
+	font-family: 'PyeongChangPeace';
+	src: url(${PyeongChangPeaceBold}) format('woff2');
+	font-weight: 700;
+}
+body {
+	font-family: 'PyeongChangPeace';
 }
 `;
 
