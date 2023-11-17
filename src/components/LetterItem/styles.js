@@ -1,50 +1,60 @@
 import styled from 'styled-components';
 
 export const Letter = styled.div`
-  display: flex;
-  width: 100%;
   margin-bottom: 20px;
-
-  & > div {
-    & > div {
-      display: flex;
-      align-items: flex-end;
-      flex-wrap: wrap;
-
-      span {
-        max-width: 70vw;
-        display: inline-block;
-        position: relative;
-        background-color: white;
-        padding: 13px;
-        border-radius: 10px;
-        font-size: 18px;
-        margin-right: 5px;
-
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        word-break: break-all;
-      }
-    }
+  a {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    width: 100%;
   }
+  &:hover {
+    scale: 1.02;
+  }
+`;
 
+export const LetterImg = styled.div`
   img {
-    width: 50px;
-    height: 50px;
-    border-radius: 20px;
-    margin-right: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   }
 
-  @media screen and (max-width: 800px) {
-    div > div {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.4rem;
+  @media screen and (max-width: 600px) {
+    img {
+      width: 40px;
+      height: 40px;
     }
+  }
+`;
 
-    h5 {
-      font-size: 0.8rem;
+export const LetterInfo = styled.div`
+  div:first-child {
+    display: flex;
+    flex-grow: 0;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+
+    span:first-child {
+      font-size: 1.4rem;
+    }
+  }
+
+  div:last-child {
+    display: block;
+    background-color: white;
+    border-radius: 6px;
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      padding: 1rem;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      border-radius: 6px;
+      box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
     }
   }
 `;

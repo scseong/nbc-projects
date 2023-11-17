@@ -1,3 +1,4 @@
+import { COLORS } from 'constants/colors';
 import styled from 'styled-components';
 
 export const StHeader = styled.header`
@@ -18,6 +19,11 @@ export const StHeader = styled.header`
 
       li {
         text-transform: uppercase;
+
+        a.active {
+          color: ${COLORS.blue.congress};
+          text-shadow: 1px 1px 2px ${COLORS.blue.sea};
+        }
       }
     }
     ul:last-child {
@@ -35,6 +41,12 @@ export const StHeader = styled.header`
 
       svg:hover {
         stroke-width: 3;
+      }
+    }
+    @media screen and (max-width: 500px) {
+      svg {
+        width: 140px;
+        height: 60px;
       }
     }
   }

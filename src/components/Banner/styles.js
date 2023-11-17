@@ -4,20 +4,19 @@ import bg from 'assets/bg2.jpg';
 export const StBanner = styled.section`
   padding: 0 3rem 2rem;
 
-  /* TODO: Image resize */
   div {
     margin: 0 auto;
-    height: 60vh;
+    height: 50vh;
     border: 6px double #fff;
     background: no-repeat url(${bg});
-    background-size: cover;
+    background-size: 100% 100%;
 
-    @media screen and (max-width: 800px) {
-      background-size: 100% 100%;
+    @media screen and (min-width: 768px) {
+      background-size: cover;
     }
 
-    @media screen and (min-width: 1600px) {
-      background-size: 100% 100%;
+    @media screen and (min-width: 2000px) {
+      height: 30vh;
     }
   }
 `;

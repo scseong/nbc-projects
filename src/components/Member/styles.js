@@ -8,7 +8,7 @@ export const StSection = styled.section`
 
   h2 {
     margin-bottom: 2rem;
-    padding: 0.7rem 1rem;
+    padding: 1rem;
     display: inline-block;
     text-align: center;
     font-size: 2rem;

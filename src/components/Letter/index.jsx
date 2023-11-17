@@ -13,7 +13,15 @@ export default function Letter({ memberId, messages }) {
 
   return (
     <S.Letter>
-      <S.H3>To. {memberData.englishName}</S.H3>
+      <h3>To. {memberData.englishName}</h3>
+      {!!filterdData[0] || (
+        <S.EmptyLetter>
+          <strong>
+            No fan letters have been registered yet. Be the star of your first
+            fan letter!
+          </strong>
+        </S.EmptyLetter>
+      )}
       {filterdData?.map((item) => {
         const { nickname, avatar, content, writedTo, createdAt, id } = item;
         return (

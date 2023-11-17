@@ -1,12 +1,13 @@
 import { COLORS } from 'constants/colors';
 import styled from 'styled-components';
 
-export const StPolaroid = styled.div`
+export const MemberList = styled.div`
   padding: 1rem;
   background-color: ${(props) => (props.$clicked ? COLORS.blue.sea : 'white')};
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   transition: all 0.1s ease-in-out;
   border: 5px double skyblue;
+  cursor: pointer;
 
   div > img {
     width: 150px;
@@ -32,14 +33,10 @@ export const StPolaroid = styled.div`
     transform: scale(1.02);
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1150px) {
     background-color: ${(props) =>
       props.$clicked ? COLORS.blue.ice : 'white'};
     padding: 0.2rem;
-    div > img {
-      width: 100px;
-      height: 100px;
-    }
 
     div > p {
       background: none;

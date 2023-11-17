@@ -44,7 +44,7 @@ blockquote, q {
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
-	content: none;
+	content: 	none;
 }
 table {
 	border-collapse: collapse;
@@ -67,7 +67,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 #root {
-	max-width: 1400px;
+	max-width: 1200px;
 	margin: 0 auto;
 }
 @font-face {
@@ -79,8 +79,9 @@ body::-webkit-scrollbar {
 	font-family: 'PyeongChangPeace';
 	src: url(${PyeongChangPeaceBold}) format('woff2');
 	font-weight: 700;
-}
+} 
 body {
+	min-height: 100vh;
 	font-family: 'PyeongChangPeace';
 }
 `;

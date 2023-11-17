@@ -7,14 +7,7 @@ export default function Member({ memberId, onUpdate }) {
   return (
     <StSection>
       <h2>MEMBER</h2>
-      <ul
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '1rem',
-          justifyContent: 'center',
-        }}
-      >
+      <ul>
         {MEMBERS.map((member) => (
           <MemberList
             key={member.id}

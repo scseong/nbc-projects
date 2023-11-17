@@ -6,6 +6,7 @@ import * as S from './styles';
 
 export default function AddLetter({ memberId, handleAdd }) {
   const member = MEMBERS.filter((m) => memberId === m.englishName)[0];
+
   const [message, setMessage] = useState({
     nickname: '',
     content: '',
@@ -13,6 +14,17 @@ export default function AddLetter({ memberId, handleAdd }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (!message.nickname.trim()) {
+      alert('Nickname을 입력해주세요.');
+      return;
+    }
+
+    if (!message.content.trim()) {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+
     handleAdd(message);
     setMessage({ nickname: '', content: '' });
   };
@@ -35,17 +47,19 @@ export default function AddLetter({ memberId, handleAdd }) {
           <img src={defaultImg} alt="" />
           <span>To. {member.englishName}</span>
         </div>
-        <input
+        <S.NicknameInput
           type="text"
           name="nickname"
-          placeholder="Write your nickname"
+          maxLength="14"
+          placeholder="Write your nickname (up to 14 characters)"
           value={message.nickname}
           onChange={handleChange}
         />
         <textarea
-          rows="4"
+          rows="3"
           name="content"
-          placeholder="Write a message"
+          maxLength="100"
+          placeholder="Write a message (up to 100 characters)"
           value={message.content}
           onChange={handleChange}
         />
