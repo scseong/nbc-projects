@@ -18,7 +18,7 @@ export default function DetailLetterItem({
     <S.DetailContainer>
       <S.DetailHeader>
         <h2>NewJeans</h2>
-        <span>No. {id.slice(0, 8)}</span>
+        <span>No. {id?.slice(0, 8)}</span>
       </S.DetailHeader>
       <S.DetailInfo>
         <S.DetailImg>

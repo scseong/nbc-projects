@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DetailLetterItem from 'components/DetailLetterItem';
 import * as S from './styles';
+import { useParams } from 'react-router-dom';
+import { useLetter } from 'hooks/useLetter';
+import { DELETE_LETTER, UPDATE_LETTER } from 'redux/modules/Letters';
 
-export default function DetailLetter({ id, messages, setMessages }) {
-  const { nickname, content, createdAt, writedTo } = messages?.filter(
-    (message) => message.id === id,
-  )[0];
+export default function DetailLetter() {
+  const [letters, setLetters] = useLetter();
+
+  const { id: letterId } = useParams();
+  const { id, nickname, content, createdAt, writedTo } =
+    letters?.filter((message) => message.id === letterId)[0] ?? {};
   const [isEdit, setIsEdit] = useState(false);
   const [editContent, setEditContent] = useState(content);
   const navigate = useNavigate();
@@ -24,22 +29,14 @@ export default function DetailLetter({ id, messages, setMessages }) {
     }
 
     if (window.confirm('수정하시겠습니까?')) {
-      setMessages((messages) => {
-        const target = messages.filter((message) => message.id === id)[0];
-        const copy = messages.filter((message) => message.id !== id);
-        target.content = editContent;
-        setIsEdit((prev) => !prev);
-
-        return [...copy, target];
-      });
+      setLetters({ letterId, editContent }, UPDATE_LETTER);
+      setIsEdit((prev) => !prev);
     }
   };
 
   const handleDelete = () => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      setMessages((messages) =>
-        messages.filter((message) => message.id !== id),
-      );
+      setLetters(letterId, DELETE_LETTER);
       navigate('/');
     }
   };

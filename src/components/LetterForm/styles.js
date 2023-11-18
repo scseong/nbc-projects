@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLORS } from 'constants/colors';
 
-export const AddLetter = styled.section`
+export const LetterForm = styled.section`
   padding: 0 3rem 3rem;
 
   form {

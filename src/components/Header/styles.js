@@ -19,10 +19,12 @@ export const StHeader = styled.header`
 
       li {
         text-transform: uppercase;
-
         a.active {
           color: ${COLORS.blue.congress};
           text-shadow: 1px 1px 2px ${COLORS.blue.sea};
+        }
+        a:hover {
+          font-weight: bold;
         }
       }
     }

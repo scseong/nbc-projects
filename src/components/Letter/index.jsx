@@ -1,20 +1,18 @@
 import React from 'react';
-import { MEMBERS } from 'constants/member';
 import LetterItem from 'components/LetterItem';
 import * as S from './styles';
+import { useLetter } from 'hooks/useLetter';
+import { useMemberId } from 'hooks/useMemberId';
 
-export default function Letter({ memberId, messages }) {
-  const memberData = MEMBERS.filter(
-    (member) => member.englishName === memberId,
-  )[0];
-  const filterdData = messages?.filter(
-    (v) => v.writedTo === memberData.englishName,
-  );
+export default function Letter() {
+  const [letters] = useLetter();
+  const [memberId] = useMemberId();
+  const filteredLetters = letters?.filter((v) => v.writedTo === memberId);
 
   return (
     <S.Letter>
-      <h3>To. {memberData.englishName}</h3>
-      {!!filterdData[0] || (
+      <h3>To. {memberId}</h3>
+      {!!filteredLetters.length || (
         <S.EmptyLetter>
           <strong>
             No fan letters have been registered yet. Be the star of your first
@@ -22,7 +20,7 @@ export default function Letter({ memberId, messages }) {
           </strong>
         </S.EmptyLetter>
       )}
-      {filterdData?.map((item) => {
+      {filteredLetters?.map((item) => {
         const { nickname, avatar, content, writedTo, createdAt, id } = item;
         return (
           <LetterItem

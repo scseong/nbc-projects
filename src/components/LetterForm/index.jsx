@@ -1,58 +1,72 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import defaultImg from 'assets/defaultUser.jpg';
-import { MEMBERS } from 'constants/member';
 import { v4 as uuid } from 'uuid';
 import * as S from './styles';
+import { useMemberId } from 'hooks/useMemberId';
+import { useLetter } from 'hooks/useLetter';
+import { CREATE_LETTER } from 'redux/modules/Letters';
 
-export default function AddLetter({ memberId, handleAdd }) {
-  const member = MEMBERS.filter((m) => memberId === m.englishName)[0];
+export default function LetterForm() {
+  const [memberId] = useMemberId();
+  const [_, setLetter] = useLetter();
 
-  const [message, setMessage] = useState({
+  const [newLetter, setNewLetter] = useState({
+    id: uuid(),
+    avatar: '',
+    writedTo: memberId,
+    createdAt: Date.now(),
     nickname: '',
     content: '',
   });
 
+  useEffect(() => {
+    setNewLetter((prev) => ({ ...prev, writedTo: memberId }));
+  }, [memberId]);
+
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (!message.nickname.trim()) {
+    if (!newLetter.nickname.trim()) {
       alert('Nickname을 입력해주세요.');
       return;
     }
 
-    if (!message.content.trim()) {
+    if (!newLetter.content.trim()) {
       alert('내용을 입력해주세요.');
       return;
     }
 
-    handleAdd(message);
-    setMessage({ nickname: '', content: '' });
+    setLetter(newLetter, CREATE_LETTER);
+    setNewLetter({
+      id: uuid(),
+      avatar: '',
+      writedTo: memberId,
+      createdAt: Date.now(),
+      nickname: '',
+      content: '',
+    });
   };
 
   const handleChange = (e) => {
-    setMessage((prev) => ({
-      id: uuid(),
-      avatar: '',
-      createdAt: Date.now(),
-      writedTo: memberId,
+    setNewLetter((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
   return (
-    <S.AddLetter>
+    <S.LetterForm>
       <form onSubmit={submitHandler}>
         <div>
           <img src={defaultImg} alt="" />
-          <span>To. {member.englishName}</span>
+          <span>To. {memberId}</span>
         </div>
         <S.NicknameInput
           type="text"
           name="nickname"
           maxLength="14"
           placeholder="Write your nickname (up to 14 characters)"
-          value={message.nickname}
+          value={newLetter.nickname}
           onChange={handleChange}
         />
         <textarea
@@ -60,11 +74,11 @@ export default function AddLetter({ memberId, handleAdd }) {
           name="content"
           maxLength="100"
           placeholder="Write a message (up to 100 characters)"
-          value={message.content}
+          value={newLetter.content}
           onChange={handleChange}
         />
         <button>Send</button>
       </form>
-    </S.AddLetter>
+    </S.LetterForm>
   );
 }

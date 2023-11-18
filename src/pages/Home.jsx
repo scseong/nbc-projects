@@ -5,10 +5,10 @@ import MemberTemplate from 'components/MemberTemplate';
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Header />
       <Banner />
       <MemberTemplate />
-    </div>
+    </>
   );
 }
