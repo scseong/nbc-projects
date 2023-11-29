@@ -3,7 +3,7 @@ import { useMemberId } from 'hooks/useMemberId';
 import * as S from './styles';
 
 export default function MemberList({ children: name }) {
-  const [memberId, setMemberId] = useMemberId(name);
+  const { memberId, setMemberId } = useMemberId(name);
   const handleClick = () => setMemberId(name);
 
   return (

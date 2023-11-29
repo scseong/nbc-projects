@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { changeMemberId } from 'redux/modules/Member';
+import { selectedMember } from 'redux/modules/member';
 
-export const useMemberId = (name) => {
+export const useMemberId = () => {
   const { memberId } = useSelector(({ member }) => member);
   const dispatch = useDispatch();
-  const setMemberId = () => dispatch(changeMemberId(name));
+  const setMemberId = (name) => dispatch(selectedMember(name));
 
-  return [memberId, setMemberId];
+  return { memberId, setMemberId };
 };

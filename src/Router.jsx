@@ -1,14 +1,10 @@
-import Home from 'pages/Home';
-import Detail from 'pages/Detail';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from 'pages/Login';
-import Profile from 'pages/Profile';
-import NotFound from 'pages/NotFound';
-import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from 'components/ProtectedRoute';
 import { useState } from 'react';
+import { Detail, Home, Login, NotFound, Profile } from 'pages';
 
 export default function Router() {
-  const [user] = useState(false);
+  const [user] = useState(true);
 
   return (
     <BrowserRouter>

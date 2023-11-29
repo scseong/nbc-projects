@@ -4,10 +4,11 @@ import DetailLetterItem from 'components/DetailLetterItem';
 import * as S from './styles';
 import { useParams } from 'react-router-dom';
 import { useLetter } from 'hooks/useLetter';
-import { DELETE_LETTER, UPDATE_LETTER } from 'redux/modules/Letters';
+import { deleteLetter, updateLetter } from 'redux/modules/letter';
+// import { DELETE_LETTER, UPDATE_LETTER } from 'redux/modules/Letters';
 
 export default function DetailLetter() {
-  const [letters, setLetters] = useLetter();
+  const { letters, setLetters } = useLetter();
 
   const { id: letterId } = useParams();
   const { id, nickname, content, createdAt, writedTo } =
@@ -29,14 +30,14 @@ export default function DetailLetter() {
     }
 
     if (window.confirm('수정하시겠습니까?')) {
-      setLetters({ letterId, editContent }, UPDATE_LETTER);
+      setLetters({ letterId, editContent }, updateLetter);
       setIsEdit((prev) => !prev);
     }
   };
 
   const handleDelete = () => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      setLetters(letterId, DELETE_LETTER);
+      setLetters(letterId, deleteLetter);
       navigate('/');
     }
   };

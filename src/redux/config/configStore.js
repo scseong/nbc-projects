@@ -1,9 +1,9 @@
-import { createStore } from 'redux';
-import { combineReducers } from 'redux';
-import letter from './../modules/Letters';
-import member from './../modules/Member';
+import { configureStore } from '@reduxjs/toolkit';
+import letter from '../modules/letter';
+import member from './../modules/member';
 
-const rootReducer = combineReducers({ letter, member });
-const store = createStore(rootReducer);
+const store = configureStore({
+  reducer: { letter, member },
+});
 
 export default store;

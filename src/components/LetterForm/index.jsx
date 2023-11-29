@@ -4,17 +4,17 @@ import { v4 as uuid } from 'uuid';
 import * as S from './styles';
 import { useMemberId } from 'hooks/useMemberId';
 import { useLetter } from 'hooks/useLetter';
-import { CREATE_LETTER } from 'redux/modules/Letters';
+import { createLetter } from 'redux/modules/letter';
 
 export default function LetterForm() {
-  const [memberId] = useMemberId();
-  const [_, setLetter] = useLetter();
+  const { memberId } = useMemberId();
+  const { setLetters } = useLetter();
 
   const [newLetter, setNewLetter] = useState({
-    id: uuid(),
+    id: '',
     avatar: '',
     writedTo: memberId,
-    createdAt: Date.now(),
+    createdAt: '',
     nickname: '',
     content: '',
   });
@@ -36,12 +36,16 @@ export default function LetterForm() {
       return;
     }
 
-    setLetter(newLetter, CREATE_LETTER);
+    setLetters(
+      { ...newLetter, id: uuid(), createdAt: Date.now() },
+      createLetter,
+    );
+
     setNewLetter({
-      id: uuid(),
+      id: '',
       avatar: '',
       writedTo: memberId,
-      createdAt: Date.now(),
+      createdAt: '',
       nickname: '',
       content: '',
     });

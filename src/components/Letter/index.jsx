@@ -5,8 +5,8 @@ import { useLetter } from 'hooks/useLetter';
 import { useMemberId } from 'hooks/useMemberId';
 
 export default function Letter() {
-  const [letters] = useLetter();
-  const [memberId] = useMemberId();
+  const { letters } = useLetter();
+  const { memberId } = useMemberId();
   const filteredLetters = letters?.filter((v) => v.writedTo === memberId);
 
   return (
