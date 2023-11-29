@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Detail, Home, Login, NotFound, Profile } from 'pages';
 
 export default function Router() {
-  const [user] = useState(true);
+  const [user] = useState(false);
 
   return (
     <BrowserRouter>

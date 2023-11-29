@@ -68,6 +68,7 @@ body::-webkit-scrollbar {
 }
 #root {
 	max-width: 1200px;
+	height: 100vh;
 	margin: 0 auto;
 }
 @font-face {

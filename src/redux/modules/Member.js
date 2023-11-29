@@ -10,7 +10,6 @@ export const memberSlice = createSlice({
   initialState,
   reducers: {
     selectedMember: (state, action) => {
-      console.log(state, action);
       state.memberId = action.payload;
     },
   },
