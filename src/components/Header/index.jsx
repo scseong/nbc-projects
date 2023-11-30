@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 import { StHeader, StNavLink } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from 'redux/modules/auth';
+import { logout } from 'redux/modules/authSlice';
 
 export default function Header() {
   const isLogin = useSelector(({ auth }) => auth.isAuthenticated);

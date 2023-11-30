@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { selectedMember } from 'redux/modules/member';
+import { selectedMember } from 'redux/modules/memberSlice';
 
 export const useMemberId = () => {
   const { memberId } = useSelector(({ member }) => member);

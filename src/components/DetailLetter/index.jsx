@@ -4,8 +4,7 @@ import DetailLetterItem from 'components/DetailLetterItem';
 import * as S from './styles';
 import { useParams } from 'react-router-dom';
 import { useLetter } from 'hooks/useLetter';
-import { deleteLetter, updateLetter } from 'redux/modules/letter';
-// import { DELETE_LETTER, UPDATE_LETTER } from 'redux/modules/Letters';
+import { deleteLetter, updateLetter } from 'redux/modules/letterSlice';
 
 export default function DetailLetter() {
   const { letters, setLetters } = useLetter();

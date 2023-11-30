@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import letter from '../modules/letter';
-import member from '../modules/member';
-import auth from '../modules/auth';
+import letters from '../modules/letterSlice';
+import member from '../modules/memberSlice';
+import auth from '../modules/authSlice';
 
 const store = configureStore({
-  reducer: { letter, member, auth },
+  reducer: { letters, member, auth },
 });
 
 export default store;

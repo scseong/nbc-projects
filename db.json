@@ -1,0 +1,22 @@
+{
+  "letters": [
+    {
+      "id": "e4640055-e4ac-4156-a13c-787ee77055f1",
+      "avatar": "",
+      "writedTo": "Minji",
+      "createdAt": 1701331383315,
+      "nickname": "점메추",
+      "content": "12412412",
+      "userId": "123456"
+    },
+    {
+      "id": "ecc7ce6b-888d-4e46-9850-6001b0bd7cb2",
+      "avatar": "",
+      "writedTo": "Minji",
+      "createdAt": 1701334124833,
+      "nickname": "점메추",
+      "content": "124124124",
+      "userId": "123456"
+    }
+  ]
+}

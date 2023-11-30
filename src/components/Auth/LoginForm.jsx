@@ -12,7 +12,7 @@ import { useInput } from 'hooks/useInput';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa6';
 import axios from 'axios';
-import { login } from 'redux/modules/auth';
+import { login } from 'redux/modules/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import * as S from './styles';
 import { useMemberId } from 'hooks/useMemberId';
 import { useLetter } from 'hooks/useLetter';
-import { createLetter } from 'redux/modules/letter';
+import { createLetter } from 'redux/modules/letterSlice';
 import { useSelector } from 'react-redux';
 
 export default function LetterForm() {
