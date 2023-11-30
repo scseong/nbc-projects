@@ -1,34 +1,134 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
-  letters: JSON.parse(localStorage.getItem('letters')) || [],
+  letters: [],
+  isLoading: false,
+  error: null,
 };
+
+export const __getLetters = createAsyncThunk(
+  'getLetters',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_FETCH_URL}/letters?_sort=createdAt&_order=desc`,
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const __createLetter = createAsyncThunk(
+  'createLetter',
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_FETCH_URL}/letters`,
+        payload,
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const __deleteLetter = createAsyncThunk(
+  'deleteLetter',
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_FETCH_URL}/letters/${payload}`,
+      );
+
+      thunkAPI.dispatch(__getLetters());
+      return thunkAPI.fulfillWithValue();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const __updateLetter = createAsyncThunk(
+  'updateLetter',
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.patch(
+        `${process.env.REACT_APP_FETCH_URL}/letters/${payload.letterId}`,
+        { content: payload.editContent },
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
 
 const letterSlice = createSlice({
   name: 'letter',
   initialState,
-  reducers: {
-    createLetter: (state, action) => {
-      localStorage.setItem(
-        'letters',
-        JSON.stringify([...state.letters, action.payload]),
-      );
+  reducers: {},
+  extraReducers: {
+    // __getLetters
+    [__getLetters.pending]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [__getLetters.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.letters = action.payload;
+    },
+    [__getLetters.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // __createLetter
+    [__createLetter.pending]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [__createLetter.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
       state.letters.push(action.payload);
     },
-    deleteLetter: (state, action) => {
-      const deletedLetters = state.letters.filter(
-        (item) => item.id !== action.payload,
-      );
-      localStorage.setItem('letters', JSON.stringify(deletedLetters));
-      state.letters = deletedLetters;
+    [__createLetter.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
-    updateLetter: (state, action) => {
-      const { letterId, editContent } = action.payload;
-      const targetIdx = state.letters.findIndex(
-        (letter) => letter.id === letterId,
+    // __deleteLetter
+    [__deleteLetter.pending]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [__deleteLetter.fulfilled]: (state) => {
+      state.isLoading = false;
+      state.error = null;
+    },
+    [__deleteLetter.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // __updateLetter
+    [__updateLetter.pending]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [__updateLetter.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      const targetIndex = state.letters.findIndex(
+        (letter) => letter.id === action.payload.id,
       );
-      state.letters[targetIdx].content = editContent;
-      localStorage.setItem('letters', JSON.stringify(state.letters));
+      state.letters[targetIndex] = action.payload;
+    },
+    [__updateLetter.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

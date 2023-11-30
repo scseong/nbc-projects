@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GlobalStyles from 'GlobalStyles';
-import { Provider } from 'react-redux';
-import store from 'redux/config/configStore';
 import Router from 'Router';
+import { useDispatch } from 'react-redux';
+import { __getLetters } from 'redux/modules/letterSlice';
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__getLetters());
+  }, [dispatch]);
+
   return (
-    <Provider store={store}>
+    <>
       <GlobalStyles />
       <Router />
-    </Provider>
+    </>
   );
 }

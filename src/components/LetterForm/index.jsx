@@ -3,14 +3,13 @@ import defaultImg from 'assets/defaultUser.jpg';
 import { v4 as uuid } from 'uuid';
 import * as S from './styles';
 import { useMemberId } from 'hooks/useMemberId';
-import { useLetter } from 'hooks/useLetter';
-import { createLetter } from 'redux/modules/letterSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { __createLetter } from 'redux/modules/letterSlice';
 
 export default function LetterForm() {
   const user = useSelector(({ auth }) => auth.user);
   const { memberId } = useMemberId();
-  const { setLetters } = useLetter();
+  const dispatch = useDispatch();
 
   const [newLetter, setNewLetter] = useState({
     id: '',
@@ -33,12 +32,14 @@ export default function LetterForm() {
       return;
     }
 
-    setLetters(
-      { ...newLetter, id: uuid(), createdAt: Date.now() },
-      createLetter,
+    dispatch(
+      __createLetter({
+        ...newLetter,
+        id: uuid(),
+        createdAt: Date.now(),
+        userId: user.userId,
+      }),
     );
-
-    console.log(user.nickname);
 
     setNewLetter({
       id: '',

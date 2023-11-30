@@ -1,21 +1,21 @@
 {
   "letters": [
     {
-      "id": "e4640055-e4ac-4156-a13c-787ee77055f1",
+      "id": "8118dd1e-4ffc-42c1-99e6-5c5c909c7c75",
       "avatar": "",
       "writedTo": "Minji",
-      "createdAt": 1701331383315,
+      "createdAt": 1701356445024,
       "nickname": "점메추",
-      "content": "12412412",
+      "content": "저메추 배고파",
       "userId": "123456"
     },
     {
-      "id": "ecc7ce6b-888d-4e46-9850-6001b0bd7cb2",
+      "id": "b25f5d7a-4298-4989-b6b1-2be58a94dc03",
       "avatar": "",
       "writedTo": "Minji",
-      "createdAt": 1701334124833,
+      "createdAt": 1701357976481,
       "nickname": "점메추",
-      "content": "124124124",
+      "content": "123",
       "userId": "123456"
     }
   ]
