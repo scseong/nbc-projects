@@ -43,10 +43,14 @@ export const LetterForm = styled.section`
   }
 `;
 
-export const NicknameInput = styled.input`
+export const Nickname = styled.p`
   padding: 0.3rem 0;
-  font-size: 1rem;
   line-height: 2rem;
-  text-decoration: underline;
-  color: ${(props) => (props.$isOver ? 'red' : 'inherit')};
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.8);
+
+  span {
+    font-size: 1.2rem;
+    color: black;
+  }
 `;

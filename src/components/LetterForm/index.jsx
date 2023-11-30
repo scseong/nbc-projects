@@ -5,17 +5,19 @@ import * as S from './styles';
 import { useMemberId } from 'hooks/useMemberId';
 import { useLetter } from 'hooks/useLetter';
 import { createLetter } from 'redux/modules/letter';
+import { useSelector } from 'react-redux';
 
 export default function LetterForm() {
+  const user = useSelector(({ auth }) => auth.user);
   const { memberId } = useMemberId();
   const { setLetters } = useLetter();
 
   const [newLetter, setNewLetter] = useState({
     id: '',
-    avatar: '',
+    avatar: user.avatar ?? '',
     writedTo: memberId,
     createdAt: '',
-    nickname: '',
+    nickname: user.nickname,
     content: '',
   });
 
@@ -25,11 +27,6 @@ export default function LetterForm() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    if (!newLetter.nickname.trim()) {
-      alert('Nickname을 입력해주세요.');
-      return;
-    }
 
     if (!newLetter.content.trim()) {
       alert('내용을 입력해주세요.');
@@ -41,12 +38,14 @@ export default function LetterForm() {
       createLetter,
     );
 
+    console.log(user.nickname);
+
     setNewLetter({
       id: '',
-      avatar: '',
+      avatar: user.avatar,
       writedTo: memberId,
       createdAt: '',
-      nickname: '',
+      nickname: user.nickname,
       content: '',
     });
   };
@@ -65,14 +64,9 @@ export default function LetterForm() {
           <img src={defaultImg} alt="" />
           <span>To. {memberId}</span>
         </div>
-        <S.NicknameInput
-          type="text"
-          name="nickname"
-          maxLength="14"
-          placeholder="Write your nickname (up to 14 characters)"
-          value={newLetter.nickname}
-          onChange={handleChange}
-        />
+        <S.Nickname>
+          From. <span>{user.nickname}</span>
+        </S.Nickname>
         <textarea
           rows="3"
           name="content"

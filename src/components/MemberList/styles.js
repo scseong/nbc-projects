@@ -9,7 +9,7 @@ export const MemberList = styled.div`
   border: 5px double skyblue;
   cursor: pointer;
 
-  div > img {
+  div img {
     width: 150px;
     height: 220px;
   }
@@ -34,13 +34,17 @@ export const MemberList = styled.div`
   }
 
   @media screen and (max-width: 1150px) {
-    background-color: ${(props) =>
-      props.$clicked ? COLORS.blue.ice : 'white'};
-    padding: 0.2rem;
+    width: 18%;
+    padding: 0.4rem;
 
     div > p {
       background: none;
       font-size: 1.1rem;
+    }
+
+    img {
+      width: 100% !important;
+      height: 100% !important;
     }
 
     &:nth-child(odd) {

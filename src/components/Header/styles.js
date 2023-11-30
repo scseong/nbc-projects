@@ -1,4 +1,5 @@
 import { COLORS } from 'constants/colors';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const StHeader = styled.header`
@@ -14,17 +15,17 @@ export const StHeader = styled.header`
 
     ul {
       display: flex;
+      align-items: center;
       flex: 1 1 0;
       gap: 2rem;
 
       li {
         text-transform: uppercase;
-        a.active {
-          color: ${COLORS.blue.congress};
-          text-shadow: 1px 1px 2px ${COLORS.blue.sea};
-        }
-        a:hover {
-          font-weight: bold;
+
+        button {
+          font-size: 1rem;
+          color: white;
+          cursor: pointer;
         }
       }
     }
@@ -51,5 +52,26 @@ export const StHeader = styled.header`
         height: 60px;
       }
     }
+  }
+`;
+
+export const StNavLink = styled(NavLink)`
+  position: relative;
+  &.active {
+    font-weight: bold;
+    color: ${COLORS.blue.congress};
+  }
+
+  &.active:after {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: ${COLORS.blue.congress};
+    border-radius: 50%;
+    content: '';
+    opacity: 0.5;
+    transform: translate(-50%, -50%);
   }
 `;
