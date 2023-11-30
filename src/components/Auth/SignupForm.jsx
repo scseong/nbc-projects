@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StButton,
+  StError,
   StGoToSignUpBtn,
   StInputBox,
   StLoginFormContainer,
@@ -11,14 +12,34 @@ import { useInput } from 'hooks/useInput';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa6';
 import { HiOutlineIdentification } from 'react-icons/hi';
+import axios from 'axios';
 
 export default function SignupForm({ onToggle }) {
+  const [error, setError] = useState('');
   const userId = useInput('');
   const nickname = useInput('');
   const password = useInput('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const newUser = {
+        id: userId.value,
+        nickname: nickname.value,
+        password: password.value,
+      };
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/register`,
+        newUser,
+      );
+      if (data.success) {
+        alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
+        onToggle();
+      }
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -84,6 +105,7 @@ export default function SignupForm({ onToggle }) {
           </StGoToSignUpBtn>
         </span>
       </div>
+      {error && <StError>{error}</StError>}
     </StLoginFormContainer>
   );
 }

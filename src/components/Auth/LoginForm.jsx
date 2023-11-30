@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StButton,
+  StError,
   StGoToSignUpBtn,
   StInputBox,
   StLoginFormContainer,
@@ -10,14 +11,37 @@ import {
 import { useInput } from 'hooks/useInput';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa6';
+import axios from 'axios';
+import { login } from 'redux/modules/auth';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm({ onToggle }) {
   const userId = useInput('');
   const password = useInput('');
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userId.value, password.value);
+
+    try {
+      const userData = {
+        id: userId.value,
+        password: password.value,
+      };
+
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/login`,
+        userData,
+      );
+      dispatch(login(data));
+      alert('로그인 되었습니다.');
+      navigate('/');
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -71,22 +95,7 @@ export default function LoginForm({ onToggle }) {
           </StGoToSignUpBtn>
         </span>
       </div>
-      {/* <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="id"></label>
-          <input id="id" type="text" placeholder="아이디" {...userId} />
-        </div>
-        <div>
-          <label htmlFor="password"></label>
-          <input
-            id="password"
-            type="current-password"
-            placeholder="비밀번호"
-            {...password}
-          />
-        </div>
-        <button type="submit">로그인</button>
-      </form> */}
+      {error && <StError>{error}</StError>}
     </StLoginFormContainer>
   );
 }

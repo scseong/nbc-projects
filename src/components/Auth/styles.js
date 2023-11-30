@@ -109,3 +109,9 @@ export const StGoToSignUpBtn = styled.button`
   color: #666;
   cursor: pointer;
 `;
+
+export const StError = styled.div`
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #e01e5a;
+`;
