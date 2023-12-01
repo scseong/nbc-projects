@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { apiWithLetter } from 'apis/api';
 
 const initialState = {
   letters: [],
@@ -11,8 +11,8 @@ export const __getLetters = createAsyncThunk(
   'getLetters',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_FETCH_URL}/letters?_sort=createdAt&_order=desc`,
+      const { data } = await apiWithLetter.get(
+        '/letters?_sort=createdAt&_order=desc',
       );
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
@@ -25,10 +25,7 @@ export const __createLetter = createAsyncThunk(
   'createLetter',
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_FETCH_URL}/letters`,
-        payload,
-      );
+      const { data } = await apiWithLetter.post('/letters', payload);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -40,10 +37,7 @@ export const __deleteLetter = createAsyncThunk(
   'deleteLetter',
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_FETCH_URL}/letters/${payload}`,
-      );
-
+      await apiWithLetter.delete(`/letters/${payload}`);
       thunkAPI.dispatch(__getLetters());
       return thunkAPI.fulfillWithValue();
     } catch (error) {
@@ -56,9 +50,11 @@ export const __updateLetter = createAsyncThunk(
   'updateLetter',
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.patch(
-        `${process.env.REACT_APP_FETCH_URL}/letters/${payload.letterId}`,
-        { content: payload.editContent },
+      const { data } = await apiWithLetter.patch(
+        `/letters/${payload.letterId}`,
+        {
+          content: payload.editContent,
+        },
       );
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {

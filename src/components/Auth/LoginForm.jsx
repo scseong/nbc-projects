@@ -11,10 +11,10 @@ import {
 import { useInput } from 'hooks/useInput';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa6';
-import axios from 'axios';
 import { login } from 'redux/modules/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { apiWithAuth } from 'apis/api';
 
 export default function LoginForm({ onToggle }) {
   const userId = useInput('');
@@ -32,10 +32,7 @@ export default function LoginForm({ onToggle }) {
         password: password.value,
       };
 
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/login`,
-        userData,
-      );
+      const { data } = await apiWithAuth.post('/login?expiresIn=1m', userData);
       dispatch(login(data));
       alert('로그인 되었습니다.');
       navigate('/');
