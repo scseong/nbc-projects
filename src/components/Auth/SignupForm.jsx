@@ -13,6 +13,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa6';
 import { HiOutlineIdentification } from 'react-icons/hi';
 import { apiWithAuth } from 'apis/api';
+import { toast } from 'react-toastify';
 
 export default function SignupForm({ onToggle }) {
   const [error, setError] = useState('');
@@ -31,7 +32,7 @@ export default function SignupForm({ onToggle }) {
       };
       const { data } = await apiWithAuth.post('register', newUser);
       if (data.success) {
-        alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
+        toast.success('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
         onToggle();
       }
     } catch (error) {

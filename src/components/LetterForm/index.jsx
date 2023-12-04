@@ -5,6 +5,7 @@ import * as S from './styles';
 import { useMemberId } from 'hooks/useMemberId';
 import { useDispatch, useSelector } from 'react-redux';
 import { __createLetter } from 'redux/modules/letterSlice';
+import { toast } from 'react-toastify';
 
 export default function LetterForm() {
   const user = useSelector(({ auth }) => auth.user);
@@ -28,7 +29,7 @@ export default function LetterForm() {
     e.preventDefault();
 
     if (!newLetter.content.trim()) {
-      alert('내용을 입력해주세요.');
+      toast.info('내용을 입력해주세요.');
       return;
     }
 

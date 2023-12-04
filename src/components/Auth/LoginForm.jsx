@@ -15,6 +15,7 @@ import { login } from 'redux/modules/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { apiWithAuth } from 'apis/api';
+import { toast } from 'react-toastify';
 
 export default function LoginForm({ onToggle }) {
   const userId = useInput('');
@@ -34,7 +35,7 @@ export default function LoginForm({ onToggle }) {
 
       const { data } = await apiWithAuth.post('/login?expiresIn=1h', userData);
       dispatch(login(data));
-      alert('로그인 되었습니다.');
+      toast.success('로그인 되었습니다.');
       navigate('/');
     } catch (error) {
       setError(error.response.data.message);

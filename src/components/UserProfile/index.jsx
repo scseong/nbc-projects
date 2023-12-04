@@ -8,6 +8,7 @@ import { FaCamera } from 'react-icons/fa6';
 import { apiWithAuth, apiWithLetter } from 'apis/api';
 import { setProfile } from 'redux/modules/authSlice';
 import { __getLetters } from 'redux/modules/letterSlice';
+import { toast } from 'react-toastify';
 
 export default function UserProfile() {
   const [isEdit, setIsEdit] = useState(false);
@@ -24,7 +25,7 @@ export default function UserProfile() {
 
   const handleImageChange = (e) => {
     if (!isEdit) {
-      alert('수정을 한 상태에서 변경해주세요.');
+      toast.info('수정을 한 상태에서 변경해주세요.');
       setPreviewImage(null);
       return;
     }
@@ -42,7 +43,7 @@ export default function UserProfile() {
   const handleEditProfile = async () => {
     if (!newImage && nickname.value === user.nickname) {
       handleEditBtn();
-      return alert('변경사항이 없습니다.');
+      return toast.info('변경사항이 없습니다.');
     }
 
     const formData = new FormData();

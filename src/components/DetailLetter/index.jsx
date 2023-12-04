@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useLetter } from 'hooks/useLetter';
 import { __deleteLetter, __updateLetter } from 'redux/modules/letterSlice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 export default function DetailLetter() {
   const { letters } = useLetter();
@@ -25,7 +26,7 @@ export default function DetailLetter() {
     }
 
     if (content === editContent) {
-      window.alert('변경 사항이 없습니다.');
+      toast.warn('변경 사항이 없습니다.');
       setIsEdit((prev) => !prev);
       return;
     }
@@ -45,7 +46,7 @@ export default function DetailLetter() {
 
   const handleChangeContent = (e) => {
     if (e.target.value.length > 100) {
-      alert('over 100 characers');
+      toast.warn('over 100 characers');
       return;
     }
     setEditContent(e.target.value);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { logout } from 'redux/modules/authSlice';
 
 let store;
@@ -59,7 +60,7 @@ apiWithAuth.interceptors.response.use(
     const message = error.response.data.message;
     if (message === '토큰이 만료되었습니다. 다시 로그인 해주세요.') {
       store.dispatch(logout());
-      return alert('로그인이 필요합니다.');
+      return toast.warn('로그인이 필요합니다.');
     }
     if (message === '헤더에 authorization 정보가 존재하지 않습니다.') {
       return;
