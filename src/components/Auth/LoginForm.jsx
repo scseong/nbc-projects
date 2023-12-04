@@ -32,7 +32,7 @@ export default function LoginForm({ onToggle }) {
         password: password.value,
       };
 
-      const { data } = await apiWithAuth.post('/login?expiresIn=1m', userData);
+      const { data } = await apiWithAuth.post('/login?expiresIn=1h', userData);
       dispatch(login(data));
       alert('로그인 되었습니다.');
       navigate('/');

@@ -16,6 +16,7 @@ export const LetterImg = styled.div`
   img {
     width: 70px;
     height: 70px;
+    background-color: white;
     border-radius: 50%;
     box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   }

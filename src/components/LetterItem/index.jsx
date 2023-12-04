@@ -16,7 +16,7 @@ export default function LetterItem({
         <S.LetterImg>
           <img
             src={!avatar ? require(`assets/defaultUser.jpg`) : avatar}
-            alt=""
+            alt="avatar"
           />
         </S.LetterImg>
         <S.LetterInfo>

@@ -67,6 +67,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 #root {
+	min-width: 740px;
 	max-width: 1200px;
 	min-height: 100vh;
 	margin: 0 auto;

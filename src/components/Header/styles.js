@@ -46,10 +46,17 @@ export const StHeader = styled.header`
         stroke-width: 3;
       }
     }
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 700px) {
       svg {
-        width: 140px;
+        width: 160px;
         height: 60px;
+      }
+      a,
+      button {
+        font-size: 14px !important;
+      }
+      ul {
+        gap: 8px !important;
       }
     }
   }

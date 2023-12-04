@@ -12,7 +12,7 @@ import { useInput } from 'hooks/useInput';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa6';
 import { HiOutlineIdentification } from 'react-icons/hi';
-import axios from 'axios';
+import { apiWithAuth } from 'apis/api';
 
 export default function SignupForm({ onToggle }) {
   const [error, setError] = useState('');
@@ -29,10 +29,7 @@ export default function SignupForm({ onToggle }) {
         nickname: nickname.value,
         password: password.value,
       };
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/register`,
-        newUser,
-      );
+      const { data } = await apiWithAuth.post('register', newUser);
       if (data.success) {
         alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
         onToggle();

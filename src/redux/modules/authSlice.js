@@ -28,8 +28,19 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
+    setProfile: (state, action) => {
+      const { avatar, nickname } = action.payload;
+      if (avatar) {
+        localStorage.setItem('avatar', avatar);
+        state.user.avatar = avatar;
+      }
+      if (nickname) {
+        localStorage.setItem('nickname', nickname);
+        state.user.nickname = nickname;
+      }
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setProfile } = authSlice.actions;
 export default authSlice.reducer;

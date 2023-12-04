@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './styles';
 import { timestampToDate } from 'utils/date';
+import { useSelector } from 'react-redux';
 
 export default function DetailLetterItem({
   handleEdit,
@@ -14,6 +15,8 @@ export default function DetailLetterItem({
   editContent,
   id,
 }) {
+  const { user } = useSelector(({ auth }) => auth);
+
   return (
     <S.DetailContainer>
       <S.DetailHeader>
@@ -51,16 +54,18 @@ export default function DetailLetterItem({
           </div>
         </S.DetailDesc>
       </S.DetailInfo>
-      <S.DetailBtnBox>
-        <S.DetailBtn onClick={handleEdit} type={isEdit ? 'edit' : 'default'}>
-          {isEdit ? '완료' : '수정'}
-        </S.DetailBtn>
-        {!isEdit ? (
-          <S.DetailBtn onClick={handleDelete} type="delete">
-            삭제
+      {user.nickname === nickname && (
+        <S.DetailBtnBox>
+          <S.DetailBtn onClick={handleEdit} type={isEdit ? 'edit' : 'default'}>
+            {isEdit ? '완료' : '수정'}
           </S.DetailBtn>
-        ) : undefined}
-      </S.DetailBtnBox>
+          {!isEdit ? (
+            <S.DetailBtn onClick={handleDelete} type="delete">
+              삭제
+            </S.DetailBtn>
+          ) : undefined}
+        </S.DetailBtnBox>
+      )}
     </S.DetailContainer>
   );
 }
