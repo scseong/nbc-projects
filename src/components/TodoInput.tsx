@@ -1,11 +1,12 @@
 import React from 'react';
 import useInput from 'src/hooks/useInput';
 import useTodo from 'src/hooks/useTodo';
+import styles from './TodoInput.module.css';
 
 export default function TodoInput() {
   const [title, onChangeTitle, setTitleValue] = useInput('');
   const [content, onChangeContent, setContentValue] = useInput('');
-  const { addTodo } = useTodo();
+  const { addTodoMutate } = useTodo();
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -18,15 +19,17 @@ export default function TodoInput() {
       isDone: false,
     };
 
-    addTodo(newTodo);
+    addTodoMutate(newTodo);
     setTitleValue('');
     setContentValue('');
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form className={styles.form} onSubmit={onSubmit}>
+      <h2 className={styles['form-title']}>할 일 추가</h2>
       <label htmlFor="title" />
       <input
+        className={styles.input}
         value={title}
         onChange={onChangeTitle}
         type="text"
@@ -35,13 +38,14 @@ export default function TodoInput() {
       />
       <label htmlFor="content" />
       <input
+        className={styles.input}
         value={content}
         onChange={onChangeContent}
         type="text"
         id="content"
         placeholder="할 일 내용"
       />
-      <button>추가</button>
+      <button className={styles['add-btn']}>추가</button>
     </form>
   );
 }

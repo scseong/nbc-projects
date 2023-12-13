@@ -1,0 +1,28 @@
+{
+  "todos": [
+    {
+      "id": 1702456859295,
+      "title": "React 주특기 플러스",
+      "content": "TypeScript",
+      "isDone": true
+    },
+    {
+      "id": 1702456898139,
+      "title": "React 주특기 플러스",
+      "content": "React Query",
+      "isDone": true
+    },
+    {
+      "id": 1702456909593,
+      "title": "React 주특기 플러스",
+      "content": "Redux Toolkit",
+      "isDone": true
+    },
+    {
+      "id": 1702456918998,
+      "title": "React 주특기 플러스",
+      "content": "스타일링",
+      "isDone": false
+    }
+  ]
+}

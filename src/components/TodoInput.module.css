@@ -1,0 +1,19 @@
+.form {
+  margin-bottom: 1rem;
+}
+
+.form-title {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.input {
+  padding: 0.4rem 1rem;
+}
+
+.add-btn {
+  padding: 5px 1rem;
+  transform: translateY(1px);
+  cursor: pointer;
+}

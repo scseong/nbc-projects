@@ -1,14 +1,39 @@
-import { add, complete, remove } from 'src/redux/modules/todosSlice';
-import { useAppDispatch, useAppSelector } from '../types/hooks';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  addTodoItem,
+  completeTodoItem,
+  deleteTodoItem,
+  getTodos,
+} from 'src/api/todos';
 import { Todo } from 'types/db';
 
 export default function useTodo() {
-  const todos = useAppSelector(({ todosReducer }) => todosReducer.todos);
-  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+  const { data: todos } = useQuery<Todo[]>({
+    queryKey: ['todos'],
+    queryFn: getTodos,
+  });
 
-  const addTodo = (newTodo: Todo) => dispatch(add(newTodo));
-  const deleteTodo = (id: number) => dispatch(remove(id));
-  const completeTodo = (id: number) => dispatch(complete(id));
+  const { mutate: addTodoMutate } = useMutation({
+    mutationFn: addTodoItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+  });
 
-  return { todos, addTodo, deleteTodo, completeTodo };
+  const { mutate: deleteTodoMutate } = useMutation({
+    mutationFn: deleteTodoItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+  });
+
+  const { mutate: completeTodoMutate } = useMutation({
+    mutationFn: completeTodoItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+  });
+
+  return { todos, addTodoMutate, deleteTodoMutate, completeTodoMutate };
 }

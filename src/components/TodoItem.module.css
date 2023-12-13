@@ -1,0 +1,32 @@
+.container {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 2px double black;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.content {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.progress-btn,
+.del-btn {
+  padding: 4px 1rem;
+  margin-right: 4px;
+  border: none;
+  border-radius: 4px;
+}
+
+.progress-btn {
+  background-color: #adc9ff;
+}
+
+.del-btn {
+  background-color: #ffb2b2;
+}
