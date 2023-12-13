@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Todo } from 'types/db';
+import { Todo } from 'src/types/db';
 
-export interface TodosState {
+interface TodosState {
   todos: Todo[];
 }
 
@@ -9,11 +9,24 @@ const initialState: TodosState = {
   todos: [],
 };
 
-export const counterSlice = createSlice({
+export const todosSlice = createSlice({
   name: 'todos',
   initialState,
-  reducers: {},
+  reducers: {
+    add: (state, action) => {
+      state.todos.push(action.payload);
+    },
+    remove: (state, action) => {
+      state.todos = state.todos.splice(action.payload, 1);
+    },
+    complete: (state, action) => {
+      const targetIdx = state.todos.findIndex(
+        (todo) => todo.id === action.payload
+      );
+      state.todos[targetIdx].isDone = !state.todos[targetIdx].isDone;
+    },
+  },
 });
 
-export const {} = counterSlice.actions;
-export default counterSlice.reducer;
+export const { add, remove, complete } = todosSlice.actions;
+export default todosSlice.reducer;
