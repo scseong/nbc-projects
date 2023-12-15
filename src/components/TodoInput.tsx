@@ -1,16 +1,32 @@
-import React from 'react';
-import useInput from 'src/hooks/useInput';
-import useTodo from 'src/hooks/useTodo';
+import React, { memo } from 'react';
 import styles from './TodoInput.module.css';
+import { useInput, useTodos } from 'src/hooks';
+import Swal from 'sweetalert2';
 
-export default function TodoInput() {
+function TodoInput() {
   const [title, onChangeTitle, setTitleValue] = useInput('');
   const [content, onChangeContent, setContentValue] = useInput('');
-  const { addTodoMutate } = useTodo();
+  const { addTodo } = useTodos();
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!title.trim() || !content.trim()) return;
+    if (!title.trim() || !content.trim()) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: 'warning',
+        title: '제목과 내용 모두 입력해주세요.',
+      });
+      return;
+    }
 
     const newTodo = {
       id: Date.now(),
@@ -19,14 +35,14 @@ export default function TodoInput() {
       isDone: false,
     };
 
-    addTodoMutate(newTodo);
+    addTodo(newTodo);
     setTitleValue('');
     setContentValue('');
   };
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <h2 className={styles['form-title']}>할 일 추가</h2>
+      <h2 className={styles.form_title}>할 일 추가</h2>
       <label htmlFor="title" />
       <input
         className={styles.input}
@@ -45,7 +61,9 @@ export default function TodoInput() {
         id="content"
         placeholder="할 일 내용"
       />
-      <button className={styles['add-btn']}>추가</button>
+      <button className={styles.add_btn}>추가</button>
     </form>
   );
 }
+
+export default memo(TodoInput);

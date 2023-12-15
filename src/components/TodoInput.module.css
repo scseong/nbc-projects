@@ -2,7 +2,7 @@
   margin-bottom: 1rem;
 }
 
-.form-title {
+.form_title {
   margin-bottom: 1rem;
   font-size: 1.4rem;
   font-weight: bold;
@@ -12,7 +12,7 @@
   padding: 0.4rem 1rem;
 }
 
-.add-btn {
+.add_btn {
   padding: 5px 1rem;
   transform: translateY(1px);
   cursor: pointer;

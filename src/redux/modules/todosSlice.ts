@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Todo } from 'src/types/db';
 
 interface TodosState {
   todos: Todo[];

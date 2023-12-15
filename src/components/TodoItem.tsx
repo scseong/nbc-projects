@@ -1,9 +1,7 @@
 import React from 'react';
-import useTodo from 'src/hooks/useTodo';
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import { Todo } from 'src/types/db';
 import styles from './TodoItem.module.css';
+import { useTodos } from 'src/hooks';
 
 interface TodoItemProps {
   todo: Todo;
@@ -11,35 +9,35 @@ interface TodoItemProps {
 
 export default function TodoItem({ todo }: TodoItemProps) {
   const { title, content, id, isDone } = todo;
-  const MySwal = withReactContent(Swal);
-  const { deleteTodoMutate, completeTodoMutate } = useTodo();
+  const { deleteTodo, completeTodo } = useTodos();
 
   const handleDeleteTodo = () => {
-    MySwal.fire({
+    Swal.fire({
       title: '정말로 삭제하시겠습니까?',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonText: '삭제',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#888',
       cancelButtonText: '취소',
+      focusCancel: true,
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('삭제 완료', '', 'success');
-        deleteTodoMutate(id);
+        deleteTodo(id);
       }
     });
   };
-  const handleToggleComplete = () =>
-    completeTodoMutate({ ...todo, isDone: !isDone });
+  const handleToggleComplete = () => completeTodo({ ...todo, isDone: !isDone });
 
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Todo: {title}</h3>
       <p className={styles.content}>Content: {content}</p>
-      <button className={styles['progress-btn']} onClick={handleToggleComplete}>
+      <button className={styles.progress_btn} onClick={handleToggleComplete}>
         {isDone ? '완료' : '진행중'}
       </button>
-      <button className={styles['del-btn']} onClick={handleDeleteTodo}>
+      <button className={styles.del_btn} onClick={handleDeleteTodo}>
         삭제
       </button>
     </div>
