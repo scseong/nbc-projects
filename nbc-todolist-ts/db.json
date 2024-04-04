@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "id": 1702458616858,
+      "title": "React 주특기 플러스",
+      "content": "Readme 작성",
+      "isDone": false
+    },
+    {
+      "id": 1702647553044,
+      "title": "React Todolist 리팩토링",
+      "content": "코드 개선",
+      "isDone": true
+    }
+  ]
+}
