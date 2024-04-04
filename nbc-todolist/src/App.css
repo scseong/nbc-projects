@@ -1,0 +1,16 @@
+.container {
+  padding: 4rem 2rem;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  color: var(--text-primary-color);
+}
+
+.container h1 {
+  margin-bottom: 2rem;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+}
